@@ -4,6 +4,8 @@
 
 # Daily Report API
 
+<b>Note:</b> make file .env to connect database...
+
 Libraries: 
 
 1. TypeORM
