@@ -4,7 +4,7 @@ export abstract class AbstractBaseEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: false })
+  @Column({ default: true })
   status: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
