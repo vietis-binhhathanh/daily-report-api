@@ -1,7 +1,7 @@
 import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
 import { AbstractBaseEntity } from '../../@base/entity/abstract-base-entity';
 import { IsEmail } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import { classToPlain, Exclude } from 'class-transformer';
 
 import * as bcrypt from 'bcryptjs';
 import { TaskEntity } from './task.entity';
@@ -10,7 +10,7 @@ import { TaskEntity } from './task.entity';
 export class UserEntity extends AbstractBaseEntity {
   @Column({ unique: true })
   @IsEmail()
-  mail: string;
+  email: string;
 
   @Column()
   @Exclude()
@@ -23,7 +23,7 @@ export class UserEntity extends AbstractBaseEntity {
   dob: Date;
 
   @Column({ default: false })
-  role: boolean;
+  admin: boolean;
 
   @Column({ default: null, nullable: true })
   avatar: string | null;
@@ -41,5 +41,9 @@ export class UserEntity extends AbstractBaseEntity {
 
   async comparePassword(attempt: string) {
     return await bcrypt.compare(attempt, this.password);
+  }
+
+  toJSON() {
+    return classToPlain(this);
   }
 }
